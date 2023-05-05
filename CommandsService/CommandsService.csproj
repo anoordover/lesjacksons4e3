@@ -4,8 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <UserSecretsId>aa2c999a-8c5f-43cf-89d0-3031a8ea4406</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,14 +15,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\.dockerignore">
-      <Link>.dockerignore</Link>
-    </Content>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
