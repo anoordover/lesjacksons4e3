@@ -13,7 +13,7 @@ public class PlatformRepo : IPlatformRepo
     }
     public async Task<bool> SaveChanges(CancellationToken cancellationToken)
     {
-        return await _context.SaveChangesAsync(cancellationToken) > 0;
+        return await _context.SaveChangesAsync(cancellationToken) >= 0;
     }
 
     public Task<List<Platform>> getAllPlatforms(CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ public class PlatformRepo : IPlatformRepo
 
     public async Task CreatePlatform(Platform platform, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(nameof(platform));
+        ArgumentNullException.ThrowIfNull(platform);
         await _context.Platforms.AddAsync(platform, cancellationToken);
     }
 }
