@@ -10,6 +10,8 @@ public interface ICommandRepo
     void CreatePlatform(Platform platform);
     Task<bool> PlatformExists(int platformId,
         CancellationToken cancellationToken);
+    Task<bool> ExternalPlatformExists(int externalPlatformId,
+        CancellationToken cancellationToken);
 
     Task<List<Command>> GetCommandsForPlatform(int platformId,
         CancellationToken cancellationToken);

@@ -36,6 +36,13 @@ public class CommandRepo : ICommandRepo
             .AnyAsync(p => p.Id == platformId, cancellationToken);
     }
 
+    public Task<bool> ExternalPlatformExists(int externalPlatformId, CancellationToken cancellationToken)
+    {
+        return _context.Platforms.AnyAsync(
+            p => p.ExternalId == externalPlatformId,
+            cancellationToken);
+    }
+
     public Task<List<Command>> GetCommandsForPlatform(int platformId, CancellationToken cancellationToken)
     {
         return _context.Commands
