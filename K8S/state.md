@@ -1,5 +1,5 @@
-https://youtu.be/DgVjEo3OGBI?t=34514
-Starting with GRPC
+https://youtu.be/DgVjEo3OGBI?t=39044
+GRPC to k8s
 
 
 # build
