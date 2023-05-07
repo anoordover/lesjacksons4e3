@@ -43,10 +43,11 @@ public class EventProcessor : IEventProcessor
             {
                 repo.CreatePlatform(platform);
                 var result = repo.SaveChanges(CancellationToken.None).Result;
+                Console.WriteLine("--> Platform added!");
             }
             else
             {
-                Console.WriteLine("--> Platform already exists");
+                Console.WriteLine("--> Platform already exists...");
             }
         }
         catch (Exception ex)
