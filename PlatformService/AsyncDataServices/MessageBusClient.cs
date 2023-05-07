@@ -43,7 +43,6 @@ public sealed class MessageBusClient : IMessageBusClient
         if (_connection.IsOpen)
         {
             Console.WriteLine("--> RabbitMQ Connection Open, sending message...");
-            //TODO: send the message
             SendMessage(message);
         }
         else
