@@ -1,3 +1,4 @@
+using CommandsService.AsyncDataServices;
 using CommandsService.Data;
 using CommandsService.EventProcessing;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ builder.Services
         opt.UseInMemoryDatabase("InMem"))
     .AddScoped<ICommandRepo, CommandRepo>()
     .AddSingleton<IEventProcessor, EventProcessor>()
+    .AddHostedService<MessageBusSubscriber>()
     .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

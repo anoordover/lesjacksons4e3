@@ -24,14 +24,14 @@ public class EventProcessor : IEventProcessor
         switch (eventType)
         {
             case EventType.PlatformPublished:
-                Console.WriteLine("-->");
+                AddPlatform(message);
                 break;
             default:
                 break;
         }
     }
 
-    private async Task AddPlatform(string platformPublishedMessage, CancellationToken cancellationToken)
+    private void AddPlatform(string platformPublishedMessage)
     {
         using var scope = _scopeFactory.CreateScope();
         var repo = scope.ServiceProvider.GetRequiredService<ICommandRepo>();
@@ -39,10 +39,10 @@ public class EventProcessor : IEventProcessor
         var platform = _mapper.Map<Platform>(platformPublishedDto);
         try
         {
-            if (!await repo.ExternalPlatformExists(platform.ExternalId, cancellationToken))
+            if (!repo.ExternalPlatformExists(platform.ExternalId, CancellationToken.None).Result)
             {
                 repo.CreatePlatform(platform);
-                await repo.SaveChanges(cancellationToken);
+                var result = repo.SaveChanges(CancellationToken.None).Result;
             }
             else
             {
