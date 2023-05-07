@@ -2,6 +2,7 @@ using System.Text.Json;
 using AutoMapper;
 using CommandsService.Data;
 using CommandsService.Dtos;
+using CommandsService.Models;
 
 namespace CommandsService.EventProcessing;
 
@@ -30,10 +31,28 @@ public class EventProcessor : IEventProcessor
         }
     }
 
-    private void AddPlatform(string platformPublishedMessage)
+    private async Task AddPlatform(string platformPublishedMessage, CancellationToken cancellationToken)
     {
         using var scope = _scopeFactory.CreateScope();
         var repo = scope.ServiceProvider.GetRequiredService<ICommandRepo>();
+        var platformPublishedDto = JsonSerializer.Deserialize<PlatformPublishedDto>(platformPublishedMessage);
+        var platform = _mapper.Map<Platform>(platformPublishedDto);
+        try
+        {
+            if (!await repo.ExternalPlatformExists(platform.ExternalId, cancellationToken))
+            {
+                repo.CreatePlatform(platform);
+                await repo.SaveChanges(cancellationToken);
+            }
+            else
+            {
+                Console.WriteLine("--> Platform already exists");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"--> Could not add Platform to DB: {ex.Message}");
+        }
     }
     private static EventType DetermineEventType(string notificationMessage)
     {
