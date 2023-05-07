@@ -43,7 +43,7 @@ public class EventProcessor : IEventProcessor
             {
                 repo.CreatePlatform(platform);
                 var result = repo.SaveChanges(CancellationToken.None).Result;
-                Console.WriteLine("--> Platform added!");
+                Console.WriteLine($"--> Platform added: {result}!");
             }
             else
             {
